@@ -5,7 +5,7 @@ const cors = require('cors');
 const path = require('path');
 const route = require('./routes')
 const server = express();
-const PORT = 3030;
+const PORT = process.env.PORT || 3030;
 
 require('./database/config')
 
