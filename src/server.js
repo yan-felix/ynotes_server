@@ -9,6 +9,11 @@ const PORT = process.env.PORT || 3030;
 
 require('./database/config')
 
+const corsOptions = {
+    origin: 'https://ynotes-client.vercel.app/', // Substitua por sua URL específica
+    optionsSuccessStatus: 200 // Alguns navegadores antigos (como o IE11) podem precisar disso
+};
+
 server.use(session({secret: 'YCFandeixisekeidoapp'}));
 
 server.use(express.json());
