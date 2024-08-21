@@ -23,7 +23,7 @@ server.use(fileUpload({
     tempFileDir: path.join(__dirname, 'temp')
 }));
 
-server.use(cors(corsOptions));
+server.use(cors());
 
 server.use(route)
 
