@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
 const path = require('path');
@@ -14,7 +15,15 @@ const corsOptions = {
     optionsSuccessStatus: 200 // Alguns navegadores antigos (como o IE11) podem precisar disso
 };
 
-server.use(session({secret: 'YCFandeixisekeidoapp'}));
+server.use(session({
+    store: MongoStore.create({ 
+        mongoUrl: 'mongodb+srv://db_user:se_db_user_manugin@ynotescluster.aewclyc.mongodb.net/?retryWrites=true&w=majority&appName=yNotesCluster',
+    }),
+    secret: 'YCFandeixisekeidoapp',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: true }
+}));
 
 server.use(express.json());
 
@@ -23,7 +32,7 @@ server.use(fileUpload({
     tempFileDir: path.join(__dirname, 'temp')
 }));
 
-server.use(cors());
+server.use(cors(corsOptions));
 
 server.use(route)
 
