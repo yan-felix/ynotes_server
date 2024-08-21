@@ -1,6 +1,4 @@
 const express = require('express');
-const session = require('express-session');
-const MongoStore = require('connect-mongo');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
 const path = require('path');
@@ -8,22 +6,15 @@ const route = require('./routes')
 const server = express();
 const PORT = process.env.PORT || 3030;
 
-require('./database/config')
+require('./database/config');
+
+const ORIGIN = 'https://ynotes-client.vercel.app';
+//const DEV_ORIGIN = 'http://localhost:3000'
 
 const corsOptions = {
-    origin: 'https://ynotes-client.vercel.app/', // Substitua por sua URL específica
-    optionsSuccessStatus: 200 // Alguns navegadores antigos (como o IE11) podem precisar disso
+    origin: ORIGIN,
+    optionsSuccessStatus: 200
 };
-
-server.use(session({
-    store: MongoStore.create({ 
-        mongoUrl: 'mongodb+srv://db_user:se_db_user_manugin@ynotescluster.aewclyc.mongodb.net/?retryWrites=true&w=majority&appName=yNotesCluster',
-    }),
-    secret: 'YCFandeixisekeidoapp',
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: true }
-}));
 
 server.use(express.json());
 
