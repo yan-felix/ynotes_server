@@ -8,17 +8,16 @@ const PORT = process.env.PORT || 3030;
 
 require('./database/config');
 
-//const ORIGIN = 'https://ynotes-client.vercel.app';
+const ORIGIN = 'https://ynotes-client.vercel.app';
 //const DEV_ORIGIN = 'http://localhost:3000'
 
-/*
 const corsOptions = {
-    origin: 'https://ynotes-client.vercel.app',
+    origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     optionsSuccessStatus: 200
 };
-*/
+
 
 server.use(express.json());
 
@@ -27,7 +26,7 @@ server.use(fileUpload({
     tempFileDir: path.join(__dirname, 'temp')
 }));
 
-//server.use(cors(corsOptions));
+server.use(cors(corsOptions));
 
 server.use(route)
 
