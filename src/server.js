@@ -1,6 +1,6 @@
 const express = require('express');
 const fileUpload = require('express-fileupload');
-//const cors = require('cors');
+const cors = require('cors');
 const path = require('path');
 const route = require('./routes')
 const server = express();
@@ -8,13 +8,13 @@ const PORT = process.env.PORT || 3030;
 
 require('./database/config');
 
-const ORIGIN = 'https://ynotes-client.vercel.app';
+const ORIGIN = 'https://ynotes-client.vercel.app/';
 //const DEV_ORIGIN = 'http://localhost:3000'
 
 const corsOptions = {
-    origin: '*',
+    origin: ORIGIN,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: ['Content-Type'],
     optionsSuccessStatus: 200
 };
 
