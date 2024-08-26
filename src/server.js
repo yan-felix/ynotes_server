@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3030;
 
 require('./database/config');
 
-const ORIGIN = 'https://ynotes-client.vercel.app/';
+const ORIGIN = 'https://ynotes-client.vercel.app';
 //const DEV_ORIGIN = 'http://localhost:3000'
 
 const corsOptions = {
@@ -18,6 +18,7 @@ const corsOptions = {
     optionsSuccessStatus: 200
 };
 
+server.use(cors(corsOptions));
 
 server.use(express.json());
 
@@ -26,9 +27,7 @@ server.use(fileUpload({
     tempFileDir: path.join(__dirname, 'temp')
 }));
 
-server.use(cors(corsOptions));
-
-server.use(route)
+server.use(route);
 
 server.listen(PORT, () => {
     console.log(`Servidor rodando na porta: ${PORT}`)
