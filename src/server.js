@@ -1,6 +1,7 @@
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
+const session = require('express-session');
 const path = require('path');
 const route = require('./routes')
 const server = express();
@@ -18,7 +19,9 @@ const corsOptions = {
     optionsSuccessStatus: 200
 };
 
-server.use(cors(corsOptions));
+server.use(cors());
+
+server.use(session({secret: 'YCFandeixisekeidoapp'}));
 
 server.use(express.json());
 
