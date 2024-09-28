@@ -12,7 +12,7 @@ const app = express();
 const server = http.createServer(app);
 
 // Configuração do Cors
-const ORIGIN = "http://localhost:3000";
+const ORIGIN = "https://ynotes-client.vercel.app/";
 
 const corsOptions = {
   origin: ORIGIN,
