@@ -1,5 +1,4 @@
 
-const http = require('http');
 const express = require('express');
 const session = require('express-session');
 const fileUpload = require('express-fileupload');
@@ -21,7 +20,14 @@ const corsOptions = {
 };
 
 // Configuração da aplicação Express
-app.use(cors());
+app.use(cors(
+  {
+    origin: ORIGIN,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+    allowedHeaders: ['Content-Type', 'user-id', 'token'], // Cabeçalhos permitidos
+    credentials: true, // Permitir envio de cookies de credenciais
+  }
+));
 
 app.use(session({ secret: 'YCFandeixisekeidoapp' }));
 
