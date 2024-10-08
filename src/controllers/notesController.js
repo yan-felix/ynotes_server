@@ -8,7 +8,8 @@ function generateNoteID(userID){
 module.exports = {
   async myNotes(req, res) {
     const userID = req.headers['user-id'];
-    const token = req.headers['token'];
+    const token = req.headers['authorization'];
+
 
     if(!userID || !token) return res.status(401).json({ auth: false, index: 9, type: 'auth_failed', message: 'Error de autenticação, userID e/ou token em falta. Tente se autenticar novamente: logout --> login.' });
 
@@ -28,7 +29,8 @@ module.exports = {
 
   async createNote(req, res){
     const userID = req.headers['user-id'];
-    const token = req.headers['token'];
+    const token = req.headers['authorization'];
+    
     const {title, content} = req.body;
     const newNoteID = generateNoteID(userID);
 
@@ -55,7 +57,8 @@ module.exports = {
 
   async toggleNotePriority(req, res) {
     const userID = req.headers['user-id'];
-    const token = req.headers['token'];
+    const token = req.headers['authorization'];
+    
     const noteID = req.body.noteID;
 
     if (!userID || !token) return res.status(401).json({ auth: false, index: 9, type: 'auth_failed', message: 'Error de autenticação, userID e/ou token em falta. Tente se autenticar novamente: logout --> login.' });
@@ -81,7 +84,8 @@ module.exports = {
 
   async deleteNote(req, res){
     const userID = req.headers['user-id'];
-    const token = req.headers['token'];
+    const token = req.headers['authorization'];
+    
     const noteID = req.params.noteID;
 
     if (!userID || !token) return res.status(401).json({ auth: false, index: 9, type: 'auth_failed', message: 'Error de autenticação, userID e/ou token em falta. Tente se autenticar novamente: logout --> login.' });
