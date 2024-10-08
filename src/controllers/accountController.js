@@ -23,8 +23,8 @@ function validateEmailFormt(email){
 
 module.exports = {
     async changeAccountName(req, res){
-        const id = req.headers['user-id'];
-        const token = req.headers['token'];
+        const userID = req.headers['user-id'];
+        const token = req.headers['authorization'];
         const {newName, confirmName, password } = req.body;
 
         try{
@@ -33,7 +33,7 @@ module.exports = {
             
             const user = await prisma.users.findUnique({
                 where: {
-                    id: id,
+                    id: userID,
                     token: token
                 }, 
                 select:{
@@ -46,7 +46,7 @@ module.exports = {
             if(password == user.password){
                 await prisma.users.update({
                     where: {
-                        id: id,
+                        id: userID,
                         token: token
                     },
                     data:{
@@ -66,8 +66,8 @@ module.exports = {
     },
 
     async changeAccountEmail(req, res){
-        const id = req.headers['user-id'];
-        const token = req.headers['token'];
+        const userID = req.headers['user-id'];
+        const token = req.headers['authorization'];
         const {newEmail, confirmEmail, password } = req.body;
 
         try{
@@ -76,7 +76,7 @@ module.exports = {
 
             const user = await prisma.users.findUnique({
                 where: {
-                    id: id,
+                    id: userID,
                     token: token
                 }, 
                 select:{
@@ -90,7 +90,7 @@ module.exports = {
             if(password == user.password){
                 await prisma.users.update({
                     where: {
-                        id: id,
+                        id: userID,
                         token: token
                     },
                     data:{
@@ -110,8 +110,8 @@ module.exports = {
     },
     
     async changeAccountPassword(req, res){
-        const id = req.headers['user-id'];
-        const token = req.headers['token'];
+        const userID = req.headers['user-id'];
+        const token = req.headers['authorization'];
         const { newPassword, confirmPassword, password } = req.body;
 
         try{
@@ -120,7 +120,7 @@ module.exports = {
 
             const user = await prisma.users.findUnique({
                 where: {
-                    id: id,
+                    id: userID,
                     token: token
                 }, 
                 select:{
@@ -131,7 +131,7 @@ module.exports = {
             if(password == user.password){
                 await prisma.users.update({
                     where: {
-                        id: id,
+                        id: userID,
                         token: token
                     },
                     data:{
@@ -152,12 +152,10 @@ module.exports = {
     },
 
     async deleteAccount(req, res){
-        const id = req.headers['user-id'];
-        const token = req.headers['token'];
+        const userID = req.headers['user-id'];
+        const token = req.headers['authorization'];
         const { email, password, confirmPassword } = req.body;
     
-        //console.log({ email, password, confirmPassword })
-
         try{
             if(!id || !token) return res.status(401).json({auth: false, message: "Falha na autenticação! Tente se autenticar novamente: logout -> login"});
             if(!email) return res.status(401).json({validated: false, index: 8, type: "string_size", message: "Por favor, informe o e-mail da conta."})
@@ -166,7 +164,7 @@ module.exports = {
 
             const user = await prisma.users.findUnique({
                 where: {
-                    id: id
+                    id: userID
                 }, 
                 select:{
                     email: true,
@@ -177,13 +175,13 @@ module.exports = {
             if(email == user.email && password == user.password){
                 await prisma.notes.deleteMany({
                     where: {
-                        userID: id
+                        userID: userID
                     }
                 });
 
                 await prisma.users.deleteMany({
                     where: {
-                        id: id
+                        id: userID
                     }
                 });
 
@@ -196,6 +194,5 @@ module.exports = {
         }finally{
             await prisma.$disconnect();
         };
-
     },
 };

@@ -10,7 +10,7 @@ const routes = require('./routes');
 const app = express();
 
 // Configuração do Cors
-const ORIGIN = "https://ynotes-client.vercel.app/";
+const ORIGIN = "https://ynotes-client.vercel.app";
 
 const corsOptions = {
   origin: ORIGIN,
@@ -20,14 +20,7 @@ const corsOptions = {
 };
 
 // Configuração da aplicação Express
-app.use(cors(
-  {
-    origin: ORIGIN,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
-    allowedHeaders: ['Content-Type', 'user-id', 'token'], // Cabeçalhos permitidos
-    credentials: true, // Permitir envio de cookies de credenciais
-  }
-));
+app.use(cors(corsOptions));
 
 app.use(session({ secret: 'YCFandeixisekeidoapp' }));
 
