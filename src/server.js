@@ -21,7 +21,7 @@ const corsOptions = {
 };
 
 // Configuração da aplicação Express
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use(session({ secret: 'YCFandeixisekeidoapp' }));
 
